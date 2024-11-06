@@ -1,18 +1,14 @@
 package me.lortseam.bettermounthud.mixin;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.util.Window;
 import net.minecraft.entity.JumpingMount;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(InGameHud.class)
 public abstract class IngameHudMixin {
@@ -40,7 +36,7 @@ public abstract class IngameHudMixin {
         return 0;
     }
 
-    @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE"), ordinal = 11)
+    @ModifyVariable(method = "renderAirBubbles", at = @At(value = "STORE"), ordinal = 1, argsOnly = true)
     private int bettermounthud$moveAirUp(int y) {
         LivingEntity entity = getRiddenEntity();
         if (entity != null) {
