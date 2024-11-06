@@ -36,14 +36,13 @@ public abstract class IngameHudMixin {
         return 0;
     }
 
-    @ModifyVariable(method = "renderAirBubbles", at = @At(value = "STORE"), ordinal = 1, argsOnly = true)
-    private int bettermounthud$moveAirUp(int y) {
+    @ModifyVariable(method = "getAirBubbleY", at = @At(value = "HEAD"), ordinal = 0, argsOnly = true)
+    private int bettermounthud$moveAirUp(int heartCount) {
         LivingEntity entity = getRiddenEntity();
         if (entity != null) {
-            int rows = getHeartRows(getHeartCount(entity));
-            y -= rows * 10;
+            return getHeartCount(entity);
         }
-        return y;
+        return heartCount;
     }
 
     @Redirect(method = "renderMainHud", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getJumpingMount()Lnet/minecraft/entity/JumpingMount;"))
